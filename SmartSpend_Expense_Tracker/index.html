@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SmartSpend helps you track expenses, manage a budget, and understand your spending.">
+  <title>SmartSpend | Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="SmartSpend home">
+        <span class="brand-mark">S</span><span>SmartSpend</span>
+      </a>
+      <p class="side-label">WORKSPACE</p>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview"><span>▦</span> Overview</a>
+        <a class="nav-link" href="#transactions"><span>↕</span> Transactions</a>
+        <a class="nav-link" href="#budget"><span>◎</span> Budget</a>
+      </nav>
+      <div class="sidebar-tip">
+        <div class="tip-icon">✦</div>
+        <strong>Small steps add up.</strong>
+        <p>Keep an eye on your spending and make your money work for you.</p>
+      </div>
+      <div class="profile">
+        <div class="avatar">SS</div>
+        <div><strong>My Workspace</strong><small>Personal account</small></div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div>
+        <div class="topbar-right"><span class="today-dot"></span><span id="todayLabel">Your money, in focus</span></div>
+      </header>
+
+      <section class="welcome-row">
+        <div>
+          <p class="eyebrow">YOUR FINANCIAL SNAPSHOT</p>
+          <h1>Good money habits<br><span>start here.</span></h1>
+          <p class="subtitle">A clearer view of your spending, one day at a time.</p>
+        </div>
+        <button class="primary-btn" id="openExpenseBtn"><span>＋</span> Add expense</button>
+      </section>
+
+      <section class="summary-grid" aria-label="Spending summary">
+        <article class="summary-card balance-card">
+          <div class="card-top"><span>Total expenses</span><span class="metric-icon purple">↗</span></div>
+          <div class="metric-value" id="totalExpenses">₹0</div>
+          <p class="metric-note"><span class="note-dot"></span> Total recorded spending</p>
+        </article>
+        <article class="summary-card">
+          <div class="card-top"><span>Monthly budget</span><span class="metric-icon green">◎</span></div>
+          <div class="metric-value" id="budgetAmount">₹10,000</div>
+          <p class="metric-note">Your monthly spending limit</p>
+        </article>
+        <article class="summary-card">
+          <div class="card-top"><span>Budget remaining</span><span class="metric-icon orange">◷</span></div>
+          <div class="metric-value" id="remainingBudget">₹10,000</div>
+          <p class="metric-note" id="remainingNote">You're within your budget</p>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel spending-panel" id="budget">
+          <div class="panel-heading">
+            <div><h2>Spending breakdown</h2><p>Where your money goes</p></div>
+            <select id="periodFilter" aria-label="Filter spending period">
+              <option value="month">This month</option>
+              <option value="all">All time</option>
+            </select>
+          </div>
+          <div class="chart-area">
+            <div class="donut" id="donutChart" role="img" aria-label="Spending by category"><div class="donut-hole"><strong id="donutTotal">₹0</strong><span>spent</span></div></div>
+            <div class="legend" id="categoryLegend"><p class="empty-legend">Add an expense to see your breakdown.</p></div>
+          </div>
+          <div class="budget-editor">
+            <div><strong>Monthly budget</strong><small>Set a limit that works for you</small></div>
+            <form id="budgetForm" class="budget-form">
+              <label class="sr-only" for="budgetInput">Monthly budget in rupees</label>
+              <span>₹</span><input id="budgetInput" type="number" min="1" max="100000000" step="1" value="10000" required>
+              <button type="submit" class="small-btn">Update</button>
+            </form>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="budgetProgress"></div></div>
+          <p class="budget-footnote" id="budgetFootnote">0% of your budget used</p>
+        </article>
+
+        <article class="panel transactions-panel" id="transactions">
+          <div class="panel-heading">
+            <div><h2>Recent transactions</h2><p>Your latest expenses</p></div>
+            <button class="text-btn" id="viewAllBtn">View all <span>→</span></button>
+          </div>
+          <div class="transaction-tools">
+            <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search expenses..." aria-label="Search expenses"></label>
+            <select id="categoryFilter" aria-label="Filter by category">
+              <option value="all">All categories</option>
+              <option>Food</option><option>Transport</option><option>Shopping</option><option>Bills</option><option>Education</option><option>Health</option><option>Other</option>
+            </select>
+          </div>
+          <div class="transaction-list" id="transactionList" aria-live="polite"></div>
+          <p class="list-footnote" id="transactionCount">Showing your latest transactions</p>
+        </article>
+      </section>
+
+      <section class="bottom-row">
+        <div class="insight-card"><div class="insight-symbol">✦</div><div><strong>A little awareness goes a long way</strong><p id="insightText">Add your first expense to start learning about your spending habits.</p></div></div>
+        <p class="privacy-note">🔒 Your demo data stays in this browser on this device.</p>
+      </section>
+      <footer class="footer"><span>© <span id="year"></span> SmartSpend</span><span>Spend mindfully. Live freely.</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="expenseModal" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-heading"><div><p class="eyebrow">NEW TRANSACTION</p><h2 id="modalTitle">Add an expense</h2></div><button class="close-btn" id="closeModalBtn" aria-label="Close dialog">×</button></div>
+      <form id="expenseForm">
+        <label for="expenseName">Expense name</label>
+        <input id="expenseName" name="expenseName" type="text" placeholder="e.g. Lunch with friends" maxlength="60" required>
+        <div class="form-two">
+          <div><label for="expenseAmount">Amount (₹)</label><input id="expenseAmount" name="expenseAmount" type="number" min="1" max="100000000" step="0.01" placeholder="250" required></div>
+          <div><label for="expenseCategory">Category</label><select id="expenseCategory" name="expenseCategory" required><option value="Food">Food</option><option value="Transport">Transport</option><option value="Shopping">Shopping</option><option value="Bills">Bills</option><option value="Education">Education</option><option value="Health">Health</option><option value="Other">Other</option></select></div>
+        </div>
+        <label for="expenseDate">Date</label>
+        <input id="expenseDate" name="expenseDate" type="date" required>
+        <label for="expenseNote">Note <span class="optional">(optional)</span></label>
+        <textarea id="expenseNote" name="expenseNote" rows="2" maxlength="120" placeholder="Add a short note"></textarea>
+        <p class="form-error" id="formError" role="alert"></p>
+        <div class="modal-actions"><button type="button" class="secondary-btn" id="cancelBtn">Cancel</button><button type="submit" class="primary-btn">Save expense</button></div>
+      </form>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>

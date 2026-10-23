@@ -1,0 +1,33 @@
+SMARTSPEND — EXPENSE TRACKER
+
+Project overview
+SmartSpend is a responsive front-end expense tracker that helps users record everyday spending, set a monthly budget, and review spending categories from one dashboard.
+
+Objective
+The objective is to design and build a clear, user-friendly expense-tracking website using HTML, CSS, JavaScript, and Generative AI assistance. The project demonstrates responsive UI design, form validation, dynamic rendering, and browser-based data persistence.
+
+Technologies
+- HTML5: semantic structure and forms
+- CSS3: responsive layout, styling, and category chart
+- JavaScript: expense calculations, search/filter, validation, and interactions
+- ChatGPT: planning, code assistance, debugging ideas, and improvement prompts
+- GitHub: source code version control and submission
+
+Main features
+1. Dashboard with monthly expenses, budget, and remaining budget.
+2. Add and remove expenses.
+3. Categories, dates, optional notes, and amount validation.
+4. Search transactions and filter by category.
+5. Spending breakdown by category.
+6. Update budget and view budget progress.
+7. localStorage persistence in the same browser.
+8. Responsive layout for desktop and mobile screens.
+
+AI use and improvements
+Generative AI was used to brainstorm the layout and help draft HTML, CSS, and JavaScript. The result should be reviewed and personalized before submission. The responsive navigation, category chart, budget progress, validation, and localStorage behavior are features to test and explain.
+
+Limitations
+This is a front-end demonstration. It does not connect to a bank, authenticate users, sync between devices, or send data to a server.
+
+Future scope
+Potential extensions include monthly reports, export to CSV, recurring expenses, and a secure backend.
